@@ -68,6 +68,7 @@
             {
                 Debug.Log("No checkpoint. Restarting at beginning.");
                 player.transform.position = Configuration.param_player_initial_position;
+                return;
             }
             player.transform.position = chkPoint.transform.position;
         }
