@@ -58,6 +58,9 @@
             if (!Configuration.param_god_view_enabled)
             {
                 godcam.gameObject.SetActive(false);
+                voice1.GetComponentInChildren<Camera>().rect = new Rect(new Vector2(0f, 0.25f), new Vector2(0.33f, 0.5f));
+                voice2.GetComponentInChildren<Camera>().rect = new Rect(new Vector2(0.335f, 0.25f), new Vector2(0.33f, 0.5f));
+                voice3.GetComponentInChildren<Camera>().rect = new Rect(new Vector2(0.67f, 0.25f), new Vector2(0.33f, 0.5f));
             }
         }
 
