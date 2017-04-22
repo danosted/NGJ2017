@@ -71,7 +71,6 @@
         {
             var xMove = Input.GetAxis("Horizontal");
             var zMove = Input.GetAxis("Vertical");
-            Debug.LogFormat("mag {0}.", Time.deltaTime * MoveMagnitude);
             RigidBody.AddForce(new Vector3(xMove, 0f, zMove).normalized * Time.deltaTime * MoveMagnitude, ForceMode.Impulse);
         }
 

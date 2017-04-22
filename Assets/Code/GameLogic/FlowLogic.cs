@@ -50,8 +50,9 @@
 
         public void GameOver()
         {
-            Container.Resolve<UserInterfaceLogic>().InitializeGameOverCanvas();
+            //Container.Resolve<UserInterfaceLogic>().InitializeGameOverCanvas();
             PrefabManager.Shutdown();
+            PrefabManager.GetConfiguration().param_game_over = true;
         }
 
         public void RestartGame()
