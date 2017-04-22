@@ -23,6 +23,7 @@
         [Header("Player Params")]
         public Vector3 param_player_initial_position;
         public float param_player_jump_magnitude;
+        public float param_player_jump_fade;
         public float param_player_move_magnitude;
         [Header("Audio")]
         public AudioSystem audio_system;
