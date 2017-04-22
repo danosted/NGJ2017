@@ -8,6 +8,7 @@
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Assets.Code.Utilities;
+    using MonoBehaviours.Players;
 
     public class FlowLogic : LogicBase
     {
@@ -31,7 +32,11 @@
             // Change to game UI
             //Container.Resolve<UserInterfaceLogic>().InitializeGameCanvas();
             //Container.Resolve<ScreenUtil>();
-            
+
+            // Initialize Checkpoints and triggers
+            Container.Resolve<CheckPointLogic>().ActivateCheckPoints();
+            Container.Resolve<CheckPointLogic>().ActivateTriggerPoints();
+
             // Create the player
             var player = PrefabManager.GetPrefab(Configuration.prefab_player);
             player.Activate(Container);
@@ -53,6 +58,18 @@
             //Container.Resolve<UserInterfaceLogic>().InitializeGameOverCanvas();
             PrefabManager.Shutdown();
             PrefabManager.GetConfiguration().param_game_over = true;
+        }
+
+        public void RestartAtLastCheckPoint()
+        {
+            var chkPoint = Container.Resolve<CheckPointLogic>().LastCheckPoint;
+            var player = PrefabManager.GetActivePrefab(Configuration.prefab_player);
+            if (chkPoint == null)
+            {
+                Debug.Log("No checkpoint. Restarting at beginning.");
+                player.transform.position = Configuration.param_player_initial_position;
+            }
+            player.transform.position = chkPoint.transform.position;
         }
 
         public void RestartGame()

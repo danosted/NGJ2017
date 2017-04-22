@@ -12,11 +12,12 @@
         protected float JumpMagnitude { get; set; }
         protected float JumpFade { get; set; }
         protected float MoveMagnitude { get; set; }
+        protected float CurrentJumpValue { get; set; }
         private Vector3 _jumpDirection;
         protected Rigidbody RigidBody { get; set; }
         private bool _isJumping { get; set; }
 
-        public virtual void Activate(IoC container)
+        public override void Activate(IoC container)
         {
             base.Activate(container);
             JumpMagnitude = Configuration.param_player_jump_magnitude;
@@ -41,15 +42,20 @@
             {
                 Jump();
             }
-            else if(_isJumping)
+            else if (_isJumping)
             {
-                transform.Translate(_jumpDirection.normalized * Time.deltaTime * JumpMagnitude);
-                _jumpDirection.y = Mathf.MoveTowards(_jumpDirection.y, 0f, Time.deltaTime * JumpFade);
-                if(_jumpDirection.y == 0f)
+                if (CurrentJumpValue == 1.5f * Mathf.PI/* && RigidBody.velocity.y == 0*/)
                 {
+                    //Debug.LogFormat("stopped jump.");
                     _isJumping = false;
-                    //RigidBody.isKinematic = false;
+                    return;
+                    RigidBody.useGravity = true;
                 }
+                Debug.LogFormat("Sine: {0}.", Mathf.Sin(_jumpDirection.y));
+                transform.Translate(_jumpDirection.normalized * Time.deltaTime * JumpMagnitude);
+                CurrentJumpValue = Mathf.MoveTowards(CurrentJumpValue, 1.5f * Mathf.PI, Time.deltaTime * JumpFade);
+                _jumpDirection.y = Mathf.Sin(CurrentJumpValue);
+                //Debug.LogFormat("RB velo {0}. Jump dir: {1}.", RigidBody.velocity, _jumpDirection.y);
             }
             Move();
             //MoveRigid();
@@ -69,8 +75,10 @@
         protected virtual void Jump()
         {
             //RigidBody.isKinematic = true;
+            RigidBody.useGravity = false;
             _isJumping = true;
             _jumpDirection = Vector3.up;
+            CurrentJumpValue = 0.5f * Mathf.PI;
             //RigidBody.AddForce(_jumpDirection * JumpMagnitude, ForceMode.Impulse);
 
         }
