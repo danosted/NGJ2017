@@ -10,7 +10,7 @@
         protected Transform PlayerTransform { get; set; }
         protected Collider PlayerCollider { get; set; }
 
-        public virtual void Activate(IoC container)
+        public override void Activate(IoC container)
         {
             base.Activate(container);
             PlayerTransform = PrefabManager.GetActivePrefab(Configuration.prefab_player).transform;

@@ -15,9 +15,9 @@
         public Voice prefab_voice3;
         public Voice prefab_god_cam;
         [Header("UI")]
-        public CanvasManager ui_game_canvas_manager;
+        public CanvasManager ui_next_level_canvas_manager;
         public CanvasManager ui_game_over_canvas_manager;
-        public CanvasManager ui_game_menu_canvas_manager;
+        public CanvasManager ui_game_completed_canvas_manager;
         [Header("Game State Params")]
         public bool param_game_over;
         public bool param_game_started { get; set; }

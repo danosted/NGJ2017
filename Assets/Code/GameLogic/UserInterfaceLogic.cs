@@ -16,7 +16,7 @@
 
         internal void InitializeGameCanvas()
         {
-            InitializeCanvas(Configuration.ui_game_canvas_manager);
+            InitializeCanvas(Configuration.ui_next_level_canvas_manager);
         }
 
         internal void InitializeGameOverCanvas()
@@ -26,7 +26,7 @@
 
         internal void InitializeGameMenuCanvas()
         {
-            InitializeCanvas(Configuration.ui_game_menu_canvas_manager);
+            InitializeCanvas(Configuration.ui_game_completed_canvas_manager);
         }
 
         private void InitializeCanvas(CanvasManager canvas)
