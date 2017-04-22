@@ -42,19 +42,6 @@
             // Force game stop
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Container.Resolve<FlowLogic>().GameOver();
-            }
-            if (Input.GetMouseButtonDown(0))
-            {
-                // If game is not started, we start the game
-                //if (!PrefabManager.GetConfiguration().param_game_started)
-                //{
-                //    PrefabManager.GetConfiguration().param_game_started = true;
-                //    Container.Resolve<FlowLogic>().StartGame();
-                //}
-
-                // If game is over, we restart the game
-                if (!PrefabManager.GetConfiguration().param_game_over) return;
                 Container.Resolve<FlowLogic>().RestartGame();
             }
         }

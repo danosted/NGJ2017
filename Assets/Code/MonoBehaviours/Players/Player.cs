@@ -27,6 +27,7 @@
             MoveMagnitude = Configuration.param_player_move_magnitude;
             _jumpDirection = Vector3.up;
             gameObject.SetActive(true);
+            enabled = true;
             RigidBody = GetComponent<Rigidbody>();
             _distToGround = GetComponent<Collider>().bounds.extents.y;
 
@@ -54,7 +55,7 @@
                 var veloCheck = RigidBody.velocity.y == 0;
 
                 //Debug.LogFormat("Mathcheck {0}. Velocheck {1}.", mathCheck, IsGrounded());
-                if (CurrentJumpValue == 1.5f * Mathf.PI || (IsGrounded() && !_firstFrame))
+                if (CurrentJumpValue == 1.5f * Mathf.PI && IsGrounded() || (IsGrounded() && !_firstFrame))
                 {
                     //Debug.LogFormat("stopped jump.");
                     _isJumping = false;
