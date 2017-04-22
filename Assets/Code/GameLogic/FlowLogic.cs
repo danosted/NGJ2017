@@ -7,6 +7,7 @@
     using IoC;
     using UnityEngine;
     using UnityEngine.SceneManagement;
+    using Assets.Code.Utilities;
 
     public class FlowLogic : LogicBase
     {
@@ -28,11 +29,23 @@
         public void StartGame()
         {
             // Change to game UI
-            Container.Resolve<UserInterfaceLogic>().InitializeGameCanvas();
+            //Container.Resolve<UserInterfaceLogic>().InitializeGameCanvas();
+            //Container.Resolve<ScreenUtil>();
             
-            // Create an object
-            var obj = PrefabManager.GetPrefab(Configuration.prefab_moveable_object);
-            obj.Activate(Container, Vector3.zero);
+            // Create the player
+            var player = PrefabManager.GetPrefab(Configuration.prefab_player);
+            player.Activate(Container);
+
+
+            // Initialize voices
+            var voice1 = PrefabManager.GetPrefab(Configuration.prefab_voice1);
+            voice1.Activate(Container);
+
+            var voice2 = PrefabManager.GetPrefab(Configuration.prefab_voice2);
+            voice2.Activate(Container);
+
+            var voice3 = PrefabManager.GetPrefab(Configuration.prefab_voice3);
+            voice3.Activate(Container);
         }
 
         public void GameOver()

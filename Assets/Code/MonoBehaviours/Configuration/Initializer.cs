@@ -30,7 +30,7 @@
         {
             // Initialize Game
             var control = Container.Resolve<FlowLogic>();
-            control.InitializeGame();
+            control.StartGame();
         }
 
         /// <summary>
@@ -47,11 +47,11 @@
             if (Input.GetMouseButtonDown(0))
             {
                 // If game is not started, we start the game
-                if (!PrefabManager.GetConfiguration().param_game_started)
-                {
-                    PrefabManager.GetConfiguration().param_game_started = true;
-                    Container.Resolve<FlowLogic>().StartGame();
-                }
+                //if (!PrefabManager.GetConfiguration().param_game_started)
+                //{
+                //    PrefabManager.GetConfiguration().param_game_started = true;
+                //    Container.Resolve<FlowLogic>().StartGame();
+                //}
 
                 // If game is over, we restart the game
                 if (!PrefabManager.GetConfiguration().param_game_over) return;
