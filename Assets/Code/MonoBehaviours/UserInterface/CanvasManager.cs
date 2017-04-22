@@ -10,10 +10,6 @@
         public override void Activate(IoC container)
         {
             base.Activate(container);
-
-            var canvas = GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = Camera.main;
             gameObject.SetActive(true);
 
             // Activate all UI parts
