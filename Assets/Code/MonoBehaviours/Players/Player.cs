@@ -53,10 +53,10 @@
                 var mathCheck = CurrentJumpValue == 1.5f * Mathf.PI;
                 var veloCheck = RigidBody.velocity.y == 0;
 
-                Debug.LogFormat("Mathcheck {0}. Velocheck {1}.", mathCheck, IsGrounded());
+                //Debug.LogFormat("Mathcheck {0}. Velocheck {1}.", mathCheck, IsGrounded());
                 if (CurrentJumpValue == 1.5f * Mathf.PI || (IsGrounded() && !_firstFrame))
                 {
-                    Debug.LogFormat("stopped jump.");
+                    //Debug.LogFormat("stopped jump.");
                     _isJumping = false;
                     RigidBody.useGravity = true;
                 }
