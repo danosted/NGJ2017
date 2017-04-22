@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 0711a2455219d184a99f80231689c2b3
+timeCreated: 1492902484
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: To The Point
+  fontNames:
+  - To The Point
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -32,5 +32,8 @@
         [Header("Audio")]
         public AudioSystem audio_system;
         public AudioClipConfiguration audio_background_01;
+        [Header("Transition View")]
+        public TransitionView prefab_transition_view;
+        public CanvasManager ui_transtition_canvas;
     }
 }
