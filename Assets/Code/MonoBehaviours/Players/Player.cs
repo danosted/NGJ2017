@@ -16,6 +16,8 @@
         private Vector3 _jumpDirection;
         protected Rigidbody RigidBody { get; set; }
         private bool _isJumping { get; set; }
+        private bool _firstFrame { get; set; }
+        private float _distToGround { get; set; }
 
         public override void Activate(IoC container)
         {
@@ -26,6 +28,7 @@
             _jumpDirection = Vector3.up;
             gameObject.SetActive(true);
             RigidBody = GetComponent<Rigidbody>();
+            _distToGround = GetComponent<Collider>().bounds.extents.y;
 
             // Spawn player inside the level
             transform.position = Configuration.param_player_initial_position;
@@ -44,22 +47,30 @@
             }
             else if (_isJumping)
             {
-                if (CurrentJumpValue == 1.5f * Mathf.PI/* && RigidBody.velocity.y == 0*/)
-                {
-                    //Debug.LogFormat("stopped jump.");
-                    _isJumping = false;
-                    return;
-                    RigidBody.useGravity = true;
-                }
-                Debug.LogFormat("Sine: {0}.", Mathf.Sin(_jumpDirection.y));
                 transform.Translate(_jumpDirection.normalized * Time.deltaTime * JumpMagnitude);
                 CurrentJumpValue = Mathf.MoveTowards(CurrentJumpValue, 1.5f * Mathf.PI, Time.deltaTime * JumpFade);
                 _jumpDirection.y = Mathf.Sin(CurrentJumpValue);
+                var mathCheck = CurrentJumpValue == 1.5f * Mathf.PI;
+                var veloCheck = RigidBody.velocity.y == 0;
+
+                Debug.LogFormat("Mathcheck {0}. Velocheck {1}.", mathCheck, IsGrounded());
+                if (CurrentJumpValue == 1.5f * Mathf.PI || (IsGrounded() && !_firstFrame))
+                {
+                    Debug.LogFormat("stopped jump.");
+                    _isJumping = false;
+                    RigidBody.useGravity = true;
+                }
+                _firstFrame = false;
                 //Debug.LogFormat("RB velo {0}. Jump dir: {1}.", RigidBody.velocity, _jumpDirection.y);
             }
             Move();
             //MoveRigid();
             //CheckOutOfBounds();
+        }
+
+        private bool IsGrounded()
+        {
+            return Physics.Raycast(transform.position, Vector3.down, _distToGround + 0.1f);
         }
 
         //private bool IsJumping()
@@ -75,8 +86,9 @@
         protected virtual void Jump()
         {
             //RigidBody.isKinematic = true;
-            RigidBody.useGravity = false;
+            _firstFrame = true;
             _isJumping = true;
+            RigidBody.useGravity = false;
             _jumpDirection = Vector3.up;
             CurrentJumpValue = 0.5f * Mathf.PI;
             //RigidBody.AddForce(_jumpDirection * JumpMagnitude, ForceMode.Impulse);
