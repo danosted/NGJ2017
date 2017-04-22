@@ -21,12 +21,10 @@
             MoveMagnitude = Configuration.param_player_move_magnitude;
             _jumpDirection = Vector3.up;
             gameObject.SetActive(true);
+            RigidBody = GetComponent<Rigidbody>();
 
             // Spawn player inside the level
-            var collider = GetComponent<Collider>();
-            transform.position = transform.position + Vector3.forward * collider.bounds.extents.x;
-
-            RigidBody = GetComponent<Rigidbody>();
+            transform.position = Configuration.param_player_initial_position;
         }
 
         public void Deactivate()
@@ -40,8 +38,8 @@
             {
                 Jump();
             }
-            Move();
-            //MoveRigid();
+            //Move();
+            MoveRigid();
             //CheckOutOfBounds();
         }
 
@@ -74,7 +72,7 @@
             var xMove = Input.GetAxis("Horizontal");
             var zMove = Input.GetAxis("Vertical");
             Debug.LogFormat("mag {0}.", Time.deltaTime * MoveMagnitude);
-            RigidBody.AddForce(new Vector3(xMove, 0f, zMove).normalized * Time.deltaTime * MoveMagnitude, ForceMode.VelocityChange);
+            RigidBody.AddForce(new Vector3(xMove, 0f, zMove).normalized * Time.deltaTime * MoveMagnitude, ForceMode.Impulse);
         }
 
         protected virtual void CheckOutOfBounds()

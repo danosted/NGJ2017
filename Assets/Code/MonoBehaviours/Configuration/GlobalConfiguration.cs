@@ -21,6 +21,7 @@
         public bool param_game_over;
         public bool param_game_started { get; set; }
         [Header("Player Params")]
+        public Vector3 param_player_initial_position;
         public float param_player_jump_magnitude;
         public float param_player_move_magnitude;
         [Header("Audio")]
