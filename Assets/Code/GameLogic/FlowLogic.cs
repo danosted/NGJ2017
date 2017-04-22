@@ -51,6 +51,10 @@
 
             var voice3 = PrefabManager.GetPrefab(Configuration.prefab_voice3);
             voice3.Activate(Container);
+
+            // Initialize god cam
+            var godcam = PrefabManager.GetPrefab(Configuration.prefab_god_cam);
+            godcam.Activate(Container);
         }
 
         public void GameOver()
@@ -63,7 +67,8 @@
         public void RestartAtLastCheckPoint()
         {
             var chkPoint = Container.Resolve<CheckPointLogic>().LastCheckPoint;
-            var player = PrefabManager.GetActivePrefab(Configuration.prefab_player);
+            var player = PrefabManager.GetPrefab(Configuration.prefab_player);
+            player.Activate(Container);
             if (chkPoint == null)
             {
                 Debug.Log("No checkpoint. Restarting at beginning.");
