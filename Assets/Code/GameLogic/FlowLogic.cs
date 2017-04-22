@@ -55,6 +55,10 @@
             // Initialize god cam
             var godcam = PrefabManager.GetPrefab(Configuration.prefab_god_cam);
             godcam.Activate(Container);
+            if (!Configuration.param_god_view_enabled)
+            {
+                godcam.gameObject.SetActive(false);
+            }
         }
 
         public void GameOver()

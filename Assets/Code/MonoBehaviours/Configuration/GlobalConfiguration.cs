@@ -14,6 +14,7 @@
         public Voice prefab_voice2;
         public Voice prefab_voice3;
         public Voice prefab_god_cam;
+        public bool param_god_view_enabled;
         [Header("UI")]
         public CanvasManager ui_next_level_canvas_manager;
         public CanvasManager ui_game_over_canvas_manager;
