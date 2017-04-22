@@ -46,7 +46,7 @@
         private bool IsJumping()
         {
             var rb = GetComponent<Rigidbody>();
-            if (rb.velocity.y < -0.01f || 0.01f < rb.velocity.y)
+            if (rb.velocity.y < -0.1f || 0.1f < rb.velocity.y)
             {
                 return true;
             }
