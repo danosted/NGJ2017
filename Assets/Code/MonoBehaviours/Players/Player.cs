@@ -135,7 +135,7 @@
                 //print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
                 //Debug.DrawRay(contact.point, contact.normal, Color.white);
                 var distanceToContactPoint = Vector3.Distance(contact.point, transform.position + Vector3.down * _distToGround);
-                if (distanceToContactPoint < 0.3f)
+                if (distanceToContactPoint < 0.2f)
                 {
                     continue;
                 }
