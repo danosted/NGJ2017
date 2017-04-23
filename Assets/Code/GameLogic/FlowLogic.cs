@@ -69,8 +69,9 @@
         public void GameOver()
         {
             //Container.Resolve<UserInterfaceLogic>().InitializeGameOverCanvas();
-            PrefabManager.Shutdown();
+            //PrefabManager.Shutdown();
             PrefabManager.GetConfiguration().param_game_over = true;
+            SceneManager.LoadScene(Configuration.param_end_game_scene_name);
         }
 
         public void RestartAtLastCheckPoint()

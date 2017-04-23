@@ -19,6 +19,7 @@
         public CanvasManager ui_next_level_canvas_manager;
         public CanvasManager ui_game_over_canvas_manager;
         public CanvasManager ui_game_completed_canvas_manager;
+        public CanvasManager ui_game_end_canvas_manager;
         [Header("Game State Params")]
         public bool param_game_over;
         public bool param_game_started { get; set; }
@@ -42,6 +43,9 @@
         [Header("Floating Text")]
         public float param_floating_text_linger_seconds;
         public float param_floating_text_fade_speed;
-
+        public float param_floating_text_hidden_seconds;
+        [Header("Scenes")]
+        public string param_end_game_scene_name;
+        public float param_game_completed_fade_linger_seconds;
     }
 }

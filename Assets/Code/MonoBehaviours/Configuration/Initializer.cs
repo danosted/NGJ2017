@@ -4,6 +4,8 @@
     using IoC;
     using GameLogic;
     using DataAccess;
+    using UnityEngine.SceneManagement;
+    using System;
 
     public class Initializer : MonoBehaviour
     {
@@ -22,8 +24,20 @@
             PrefabManager = Container.Resolve<PrefabManager>();
 
             // Initialize game...
-            InitializeGame();
+            if(SceneManager.GetActiveScene().name == GlobalConfiguration.param_end_game_scene_name)
+            {
+                InitializeEnd();
+            }
+            else
+            {
+                InitializeGame();
+            }
+        }
 
+        private void InitializeEnd()
+        {
+            // TODO 1 (DRO): Fetch end game canvas
+            Container.Resolve<UserInterfaceLogic>().InitializeGameEndCanvas();
         }
 
         private void InitializeGame()

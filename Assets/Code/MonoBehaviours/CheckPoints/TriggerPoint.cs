@@ -48,7 +48,7 @@
 
         private void Update()
         {
-            if(_isTriggered && GameCompleted)
+            if (_isTriggered && GameCompleted)
             {
                 TriggerGameCompleted();
             }
@@ -56,7 +56,7 @@
             {
                 TriggerDeath();
             }
-            if(_isTriggered && !_isLethal)
+            if (_isTriggered && !_isLethal && !GameCompleted)
             {
                 TriggerNextScene();
             }
@@ -66,20 +66,20 @@
         {
             if (!_canvasIsTriggered)
             {
-                TriggerCanvasAndPlayerFreeze(Configuration.ui_game_completed_canvas_manager);
+                TriggerPlayerFreeze(Configuration.ui_game_completed_canvas_manager);
+                Container.Resolve<UserInterfaceLogic>().InitializeGameCompletedCanvas();
+                _canvasIsTriggered = true;
             }
-            if (_secondsWaited >= _secondsToWait)
-            {
-                SceneManager.LoadScene(0);
-            }
-            _secondsWaited += Time.deltaTime;
+
         }
 
         private void TriggerNextScene()
         {
             if (!_canvasIsTriggered)
             {
-                TriggerCanvasAndPlayerFreeze(Configuration.ui_next_level_canvas_manager);
+                TriggerPlayerFreeze(Configuration.ui_next_level_canvas_manager);
+                Container.Resolve<UserInterfaceLogic>().InitializeNextLevelCanvas();
+                _canvasIsTriggered = true;
             }
             if (_secondsWaited >= _secondsToWait)
             {
@@ -88,15 +88,12 @@
             _secondsWaited += Time.deltaTime;
         }
 
-        private void TriggerCanvasAndPlayerFreeze(CanvasManager canvas)
+        private void TriggerPlayerFreeze(CanvasManager canvas)
         {
             if (!_canvasIsTriggered)
             {
                 var player = PrefabManager.GetActivePrefab(Configuration.prefab_player);
                 player.enabled = false;
-                _canvas = PrefabManager.GetPrefab(canvas);
-                _canvas.Activate(Container);
-                _canvasIsTriggered = true;
             }
         }
 
@@ -104,7 +101,7 @@
         {
             if (!_canvasIsTriggered)
             {
-                TriggerCanvasAndPlayerFreeze(Configuration.ui_game_over_canvas_manager);
+                TriggerPlayerFreeze(Configuration.ui_game_over_canvas_manager);
             }
 
             if (_secondsWaited >= _secondsToWait)

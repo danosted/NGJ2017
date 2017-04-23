@@ -19,7 +19,9 @@
         private Text Text { get; set; }
 
         private float _textLingerSeconds;
+        private float _textHiddenSeconds;
         private float _textCurrentLinger;
+        private float _textCurrentHidden;
         private float _textFadeMagnitude;
         private Color _hiddenColor;
         private TextState _textState;
@@ -36,6 +38,7 @@
             Text = GetComponent<Text>();
             _textList = csvList.Split(';').ToList();
             _textLingerSeconds = Configuration.param_floating_text_linger_seconds;
+            _textHiddenSeconds = Configuration.param_floating_text_hidden_seconds;
             _textFadeMagnitude = Configuration.param_floating_text_fade_speed;
             _hiddenColor = Color.white;
             _hiddenColor.a = 0;
@@ -63,20 +66,21 @@
                 var alphaValue = Text.color.a + _textFadeMagnitude * Time.deltaTime;
                 alphaValue = alphaValue > 255 ? 255 : alphaValue;
                 Text.color = new Color(Text.color.r, Text.color.g, Text.color.b, alphaValue);
+                _textCurrentLinger += Time.deltaTime;
             }
-            else
+            else if(_textState == TextState.HidingColor)
             {
                 var alphaValue = Text.color.a - _textFadeMagnitude * Time.deltaTime;
                 alphaValue = alphaValue < 0f ? 0f : alphaValue;
                 Text.color = new Color(Text.color.r, Text.color.g, Text.color.b, alphaValue);
                 var chk = alphaValue <= 0f;
                 //var chk1 = Text.color - _hiddenColor;
-                if (chk)
+                if (chk && _textHiddenSeconds <= _textCurrentHidden)
                 {
                     ShowNewText();
                 }
+                _textCurrentHidden += Time.deltaTime;
             }
-            _textCurrentLinger += Time.deltaTime;
         }
     }
 }
