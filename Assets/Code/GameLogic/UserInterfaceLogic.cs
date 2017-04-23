@@ -39,6 +39,12 @@
             InitializeCanvas(Configuration.ui_game_end_canvas_manager);
         }
 
+        internal void InitializeIntroCanvas()
+        {
+            var transitionCam = PrefabManager.GetPrefab(Configuration.prefab_transition_view);
+            InitializeCanvas(Configuration.ui_intro_canvas_manager);
+        }
+
         internal void InitializeGameMenuCanvas()
         {
             InitializeCanvas(Configuration.ui_game_completed_canvas_manager);

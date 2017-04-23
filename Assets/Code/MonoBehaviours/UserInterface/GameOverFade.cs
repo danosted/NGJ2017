@@ -16,9 +16,9 @@
 
         private Image Image { get; set; }
 
-        private float _textLingerSeconds;
-        private float _textCurrentLinger;
-        private float _textFadeMagnitude;
+        private float _blackScreenLingerSeconds;
+        private float _imageCurrentLinger;
+        private float _imageFadeMagnitude;
         private Color _hiddenColor;
 
         public override void Activate(IoC container)
@@ -26,8 +26,8 @@
             base.Activate(container);
 
             Image = GetComponent<Image>();
-            _textLingerSeconds = Configuration.param_game_completed_fade_linger_seconds;
-            _textFadeMagnitude = Configuration.param_floating_text_fade_speed;
+            _blackScreenLingerSeconds = Configuration.param_game_completed_fade_linger_seconds;
+            _imageFadeMagnitude = Configuration.param_fade_to_black_speed;
             _hiddenColor = Color.black;
             _hiddenColor.a = 0;
             ShowNewText();
@@ -36,20 +36,20 @@
         void ShowNewText()
         {
             Image.color = _hiddenColor;
-            _textCurrentLinger = 0f;
+            _imageCurrentLinger = 0f;
         }
 
         void Update()
         {
-            if(_textLingerSeconds <= _textCurrentLinger)
+            if(_blackScreenLingerSeconds <= _imageCurrentLinger)
             {
                 Container.Resolve<FlowLogic>().GameOver();
                 return;
             }
-            var alphaValue = Image.color.a + _textFadeMagnitude * Time.deltaTime;
+            var alphaValue = Image.color.a + _imageFadeMagnitude * Time.deltaTime;
             alphaValue = alphaValue > 255 ? 255 : alphaValue;
             Image.color = new Color(Image.color.r, Image.color.g, Image.color.b, alphaValue);
-            _textCurrentLinger += Time.deltaTime;
+            _imageCurrentLinger += Time.deltaTime;
         }
     }
 }

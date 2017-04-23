@@ -14,6 +14,9 @@
         private IoC Container { get; set; }
         private PrefabManager PrefabManager { get; set; }
 
+        private bool _introTriggered;
+        private float _introActiveSeconds;
+
         /// <summary>
         /// Master awake - no other awake methods should be used
         /// </summary>
@@ -24,21 +27,22 @@
             PrefabManager = Container.Resolve<PrefabManager>();
 
             // Initialize game...
-            if(SceneManager.GetActiveScene().name == GlobalConfiguration.param_end_game_scene_name)
+            if(SceneManager.GetActiveScene().name == GlobalConfiguration.scene_end_game_scene_name)
             {
-                InitializeEnd();
+                Container.Resolve<UserInterfaceLogic>().InitializeGameEndCanvas();
+            }
+            else if (SceneManager.GetActiveScene().name == GlobalConfiguration.scene_intro_scene_name)
+            {
+                Container.Resolve<UserInterfaceLogic>().InitializeIntroCanvas();
+                _introTriggered = true;
+                _introActiveSeconds = 0f;
             }
             else
             {
                 InitializeGame();
             }
         }
-
-        private void InitializeEnd()
-        {
-            // TODO 1 (DRO): Fetch end game canvas
-            Container.Resolve<UserInterfaceLogic>().InitializeGameEndCanvas();
-        }
+        
 
         private void InitializeGame()
         {
@@ -57,6 +61,16 @@
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Container.Resolve<FlowLogic>().RestartGame();
+            }
+
+            // Intro sequence
+            if (_introTriggered)
+            {
+                if(GlobalConfiguration.param_game_start_after_seconds <= _introActiveSeconds)
+                {
+                    SceneManager.LoadScene(GlobalConfiguration.scene_level_one_name);
+                }
+                _introActiveSeconds += Time.deltaTime;
             }
         }
     }
