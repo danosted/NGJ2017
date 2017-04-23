@@ -92,6 +92,7 @@
             RigidBody.useGravity = false;
             _jumpDirection = Vector3.up;
             CurrentJumpValue = 0.5f * Mathf.PI;
+            Container.Resolve<AudioLogic>().PlayAudioClipFromConfiguration(Configuration.audio_jump);
             //RigidBody.AddForce(_jumpDirection * JumpMagnitude, ForceMode.Impulse);
 
         }
@@ -124,6 +125,26 @@
         {
             //ScoreLogic.AddToScore(-(int)Speed);
             //Deactivate();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            var hitFound = false;
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                //print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
+                //Debug.DrawRay(contact.point, contact.normal, Color.white);
+                var distanceToContactPoint = Vector3.Distance(contact.point, transform.position + Vector3.down * _distToGround);
+                if (distanceToContactPoint < 0.3f)
+                {
+                    continue;
+                }
+                hitFound = true;
+            }
+            if (hitFound)
+            {
+                Container.Resolve<AudioLogic>().PlayAudioClipFromConfiguration(Configuration.audio_wall_bump);
+            }
         }
     }
 }

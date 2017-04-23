@@ -30,8 +30,10 @@
         public void StartGame()
         {
             // Change to game UI
-            //Container.Resolve<UserInterfaceLogic>().InitializeGameCanvas();
-            //Container.Resolve<ScreenUtil>();
+            Container.Resolve<UserInterfaceLogic>().InitializeGameCanvas();
+
+            // Initialize Audio
+            Container.Resolve<AudioLogic>().InitializeAudio();
 
             // Initialize Checkpoints and triggers
             Container.Resolve<CheckPointLogic>().ActivateCheckPoints();

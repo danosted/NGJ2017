@@ -14,11 +14,10 @@
             AudioSource = GetComponent<AudioSource>();
         }
 
-        public void SetupAudio(AudioClipConfiguration clipConfig)
+        public void PlayAudioClip(AudioClip audioClip)
         {
-            //AudioSource.clip = ;
-            AudioSource.PlayOneShot(clipConfig.AudioClips[0]);
-            
+            AudioSource.PlayOneShot(audioClip);
+            //PrefabManager.ReturnPrefab(audioClip);
         }
     }
 }

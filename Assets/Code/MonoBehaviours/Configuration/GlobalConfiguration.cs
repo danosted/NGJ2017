@@ -31,9 +31,17 @@
         public float param_trigger_freeze_seconds;
         [Header("Audio")]
         public AudioSystem audio_system;
-        public AudioClipConfiguration audio_background_01;
+        public AudioClip audio_jump;
+        public AudioClip audio_wall_bump;
+        public AudioClip audio_walk_cycle;
+        public AudioClip audio_end_of_game;
+        public AudioClip audio_pit_fall;
         [Header("Transition View")]
         public TransitionView prefab_transition_view;
         public CanvasManager ui_transtition_canvas;
+        [Header("Floating Text")]
+        public float param_floating_text_linger_seconds;
+        public float param_floating_text_fade_speed;
+
     }
 }

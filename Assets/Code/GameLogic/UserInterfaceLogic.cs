@@ -5,6 +5,8 @@
     using DataAccess;
     using MonoBehaviours.Configuration;
     using MonoBehaviours.UserInterface;
+    using UnityEngine;
+    using Assets.Code.MonoBehaviours.Players;
 
     public class UserInterfaceLogic : LogicBase
     {
@@ -16,7 +18,8 @@
 
         internal void InitializeGameCanvas()
         {
-            InitializeCanvas(Configuration.ui_next_level_canvas_manager);
+            var transitionCam = PrefabManager.GetPrefab(Configuration.prefab_transition_view);
+            InitializeCanvas(Configuration.ui_transtition_canvas);
         }
 
         internal void InitializeGameOverCanvas()
@@ -37,6 +40,16 @@
             }
             CurrentCanvas = PrefabManager.GetPrefab(canvas);
             CurrentCanvas.Activate(Container);
+        }
+
+        private void InitializeCanvas(CanvasManager canvas, Camera camera)
+        {
+            if (CurrentCanvas != null)
+            {
+                PrefabManager.ReturnPrefab(CurrentCanvas);
+            }
+            CurrentCanvas = PrefabManager.GetPrefab(canvas);
+            CurrentCanvas.Activate(Container, camera);
         }
     }
 }
