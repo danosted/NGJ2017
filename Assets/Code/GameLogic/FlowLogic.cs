@@ -71,7 +71,7 @@
             //Container.Resolve<UserInterfaceLogic>().InitializeGameOverCanvas();
             //PrefabManager.Shutdown();
             PrefabManager.GetConfiguration().param_game_over = true;
-            SceneManager.LoadScene(Configuration.param_end_game_scene_name);
+            SceneManager.LoadScene(Configuration.scene_end_game_scene_name);
         }
 
         public void RestartAtLastCheckPoint()
@@ -91,7 +91,7 @@
         public void RestartGame()
         {
             // TODO 2 (DRO): this could be done more efficiently
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(Configuration.scene_level_one_name);
         }
     }
 }
